@@ -9,24 +9,30 @@ import { Injectable } from "@angular/core"
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Tomato Salad', 'Tasty salad with spicy masalas',
-      'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe-500x500.jpg',
-      [
-        new Ingredient('Tomato', 5),
-        new Ingredient('Cucumber', 3)
-      ]),
-    new Recipe(
-      'Big Burger', 'What else you need say?',
-      'https://www.indianhealthyrecipes.com/wp-content/uploads/2016/02/veg-burger-recipe-1.jpg',
-      [
-        new Ingredient('Buns', 2),
-        new Ingredient('Meat', 1)
-      ])
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Tomato Salad', 'Tasty salad with spicy masalas',
+  //     'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe-500x500.jpg',
+  //     [
+  //       new Ingredient('Tomato', 5),
+  //       new Ingredient('Cucumber', 3)
+  //     ]),
+  //   new Recipe(
+  //     'Big Burger', 'What else you need say?',
+  //     'https://www.indianhealthyrecipes.com/wp-content/uploads/2016/02/veg-burger-recipe-1.jpg',
+  //     [
+  //       new Ingredient('Buns', 2),
+  //       new Ingredient('Meat', 1)
+  //     ])
+  // ];
+  private recipes: Recipe[] = [];
 
   constructor(private slService: ShoppingListService){}
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();
